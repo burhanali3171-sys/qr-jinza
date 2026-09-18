@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Dear Friend Kinza 🎉</title>
+    <!-- Warm, Friendly Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 35%, #31103f 70%, #0f0c1b 100%);
+            color: #f3e8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+        }
+
+        /* Ambient glowing background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(168,85,247,0.3) 0%, rgba(0,0,0,0) 70%);
+            top: 10%;
+            left: 15%;
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: pulseGlow 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.5; }
+            100% { transform: scale(1.3) translate(30px, -20px); opacity: 0.8; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 180, 254, 0.2);
+            border-radius: 28px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(233, 213, 255, 0.1);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .chapter-label {
+            color: #d8b4fe;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #f3e8ff;
+            margin-bottom: 16px;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 10px rgba(168, 85, 247, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .cursive-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #e879f9;
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #e9d5ff;
+            font-weight: 300;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 14px 32px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 10px;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.6);
+        }
+
+        .runaway-btn {
+            position: relative;
+            transition: transform 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+            z-index: 20;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #f3e8ff;
+            box-shadow: none;
+            position: relative;
+            /* Ultra-fast, snappy transition for making the No button zip away instantly */
+            transition: transform 0.08s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Screen 1 greeting text */
+        .hello-greeting {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: #d8b4fe;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Popup overlay style */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeInPopup 0.3s ease forwards;
+        }
+
+        @keyframes fadeInPopup {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 180, 254, 0.3);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transform: scale(0.8);
+            animation: scaleUpPopup 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleUpPopup {
+            to { transform: scale(1); }
+        }
+
+        .popup-card h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #e879f9;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(168, 85, 247, 0.5);
+        }
+
+        /* Screen 2: Balloons */
+        .balloons-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+            width: 100%;
+        }
+
+        .balloon {
+            font-size: 3.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            user-select: none;
+            display: inline-block;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+
+        .balloon:hover {
+            transform: scale(1.25) translateY(-5px);
+            filter: drop-shadow(0 8px 15px rgba(168, 85, 247, 0.5));
+        }
+
+        .popped {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .revealed-text {
+            font-family: 'Dancing Script', cursive;
+            color: #e879f9;
+            font-size: 2rem;
+            min-height: 60px;
+            margin-top: 15px;
+            line-height: 1.4;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        }
+
+        /* Screen 3: Cake & Candle Glow */
+        .cake-wrapper {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .cake {
+            font-size: 6rem;
+            transition: transform 0.3s ease;
+            user-select: none;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+        }
+
+        .cake-wrapper:hover .cake {
+            transform: scale(1.1);
+        }
+
+        .candle-flame {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 22px;
+            background: radial-gradient(circle, #fff 20%, #fde047 50%, #f97316 100%);
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 20px #fde047, 0 0 30px #f97316;
+            animation: flicker 0.1s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.15) rotate(2deg); opacity: 1; }
+        }
+
+        /* Screen 4: Friendly Cards */
+        .icon-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(216, 180, 254, 0.3);
+            font-size: 1.8rem;
+            padding: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .icon-btn:hover {
+            background: rgba(168, 85, 247, 0.4);
+            transform: scale(1.2) translateY(-3px);
+            border-color: #d8b4fe;
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+        }
+
+        .reason-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(216, 180, 254, 0.2);
+            border-radius: 20px;
+            padding: 25px;
+            width: 100%;
+            min-height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f3e8ff;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            margin-bottom: 25px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(255,255,255,0.03);
+        }
+
+        /* Screen 5: Letter */
+        .envelope {
+            background: rgba(20, 10, 30, 0.6);
+            border: 1px dashed rgba(216, 180, 254, 0.4);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 25px;
+            color: #f3e8ff;
+            font-weight: 300;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .envelope::-webkit-scrollbar {
+            width: 6px;
+        }
+        .envelope::-webkit-scrollbar-thumb {
+            background: rgba(168, 85, 247, 0.5);
+            border-radius: 10px;
+        }
+
+        .envelope p {
+            color: #f3e8ff;
+            margin-bottom: 12px;
+            font-size: 1rem;
+        }
+
+        /* Screen 6: Gift Box & Question Container */
+        .gift-box {
+            font-size: 6rem;
+            cursor: pointer;
+            animation: floatGift 2s infinite ease-in-out;
+            margin: 25px 0;
+            user-select: none;
+            filter: drop-shadow(0 15px 25px rgba(168, 85, 247, 0.5));
+            transition: transform 0.3s ease;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.15);
+        }
+
+        @keyframes floatGift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        .love-question-box {
+            margin-top: 20px;
+            min-height: 120px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100px;
+        }
+
+        .runaway-no {
+            position: absolute;
+            transition: all 0.08s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 20;
+        }
+
+        /* Floating Sparkles & Stars */
+        .heart {
+            position: fixed;
+            color: #c084fc;
+            font-size: 1.4rem;
+            animation: float 5s linear infinite;
+            opacity: 0;
+            z-index: 1;
+            pointer-events: none;
+            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        /* Music Toggle Button */
+        .music-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(216, 180, 254, 0.3);
+            color: #e9d5ff;
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 100;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            background: rgba(168, 85, 247, 0.3);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Optional Soft Background Music -->
+    <button class="music-btn" onclick="toggleAudio()">🎵 Music: On/Off</button>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Popup Modal for 22nd Attempt Success -->
+    <div class="popup-overlay" id="caughtPopup">
+        <div class="popup-card">
+            <h2>Ok you caught me🙈</h2>
+            <p style="color: #f3e8ff; margin-bottom: 20px;">You finally tracked it down! Let's get started, Kinza!</p>
+            <button class="btn" onclick="proceedAfterPopup()">Let's Go! 🎉</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Screen 1: Welcome -->
+        <div class="screen active" id="screen1">
+            <div class="chapter-label">chapter one · celebrating you</div>
+            <h1 class="cursive-title">Happy Birthday, Kinza</h1>
+            <div class="hello-greeting">Helloo Kinza ✨</div>
+            <p id="letsGoPrompt">Ready for your birthday surprise, Kinza?</p>
+            <div>
+                <button class="btn runaway-btn" id="letsGoBtn" onmouseover="handleLetToGoHover()" onclick="handleLetToGoClick()">Let's Go! 🎉</button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Pop Balloons -->
+        <div class="screen" id="screen2">
+            <h1>Birthday Cheers 🎈</h1>
+            <p>Floating in the breeze are a few birthday wishes. Tap each balloon to set them free, Kinza!</p>
+            <div class="balloons-grid">
+                <span class="balloon" onclick="popBalloon(this, 'You')">🎈</span>
+                <span class="balloon" onclick="popBalloon(this, 'brighten up')">🎈</span>
+                <span class="balloon" onclick="popBalloon(this, 'every single')">🎈</span>
+                <span class="balloon" onclick="popBalloon(this, 'room, Kinza! ✨')">🎈</span>
+            </div>
+            <div class="revealed-text" id="balloonText"></div>
+            <button class="btn" id="s2Next" style="display: none;" onclick="nextScreen(3)">Next Step 🌟</button>
+        </div>
+
+        <!-- Screen 3: Make a Wish -->
+        <div class="screen" id="screen3">
+            <h1>Make a Wish, Kinza... 🎂</h1>
+            <p>Close your eyes, think about your biggest goals for this year, and blow out the candle!</p>
+            <div class="cake-wrapper" onclick="blowCandles()">
+                <div class="candle-flame" id="flame"></div>
+                <div class="cake" id="cakeEmoji">🎂</div>
+            </div>
+            <p id="cakeStatus" style="color: #d8b4fe; font-weight: 500;">Tap the cake to blow out the flame!</p>
+            <button class="btn" id="s3Next" style="display: none;" onclick="nextScreen(4)">See Why You're Great ✨</button>
+        </div>
+
+        <!-- Screen 4: Reasons Why You're an Awesome Friend -->
+        <div class="screen" id="screen4">
+            <h1>Why You're Such a Great Friend 🌸</h1>
+            <p>Kinza, tap each glowing icon below to unlock a reminder of what makes you so wonderful to have around:</p>
+            <div class="icon-row">
+                <button class="icon-btn" onclick="showReason('Your Kind Heart: Always there to listen, support, and bring positivity to everyone around you.')">💖</button>
+                <button class="icon-btn" onclick="showReason('Your Infectious Laugh: The way you can always turn a dull moment into a fun memory is unmatched.')">🌸</button>
+                <button class="icon-btn" onclick="showReason('Always Reliable: Knowing you have a friend who always has your back is the best feeling.')">⭐</button>
+                <button class="icon-btn" onclick="showReason('Your Amazing Vibe: Genuine, supportive, and simply a joy to hang out with.')">🎁</button>
+            </div>
+            <div class="reason-card" id="reasonText">Tap an icon above, my friend...</div>
+            <button class="btn" onclick="nextScreen(5)">Read Your Letter 💌</button>
+        </div>
+
+        <!-- Screen 5: Friendship Letter -->
+        <div class="screen" id="screen5">
+            <div class="chapter-label">chapter five · a note for you</div>
+            <h1>An Important Note For You 💌</h1>
+            <div class="envelope">
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #d8b4fe;"><strong>Dearest Kinza,</strong></p>
+                <p>Happy Birthday to an absolute rockstar of a friend! 🎉</p>
+                <p>I'm so glad our paths crossed. Having someone as cool, supportive, and fun as you to share laughs, deep talks, and good times with makes life so much better.</p>
+                <p>On your special day, I hope you get everything you've been working hard for. May this year bring you unmatched success, endless adventures, and all the happiness you deserve.</p>
+                <p>Thanks for being such an incredible friend and for always keeping things fun. Cheers to another great year ahead!</p>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #e879f9; margin-top: 15px;">Wishing you the happiest birthday ever! 🎈</p>
+            </div>
+            <button class="btn" onclick="nextScreen(6)">One Last Surprise... 🎁</button>
+        </div>
+
+        <!-- Screen 6: Final Gift & Friendly Question -->
+        <div class="screen" id="screen6">
+            <h1>A Small Birthday Token 🎁</h1>
+            <p>One last little surprise wrapped up for your special day. Tap the box to open it, Kinza!</p>
+            <div class="gift-box" id="giftBox" onclick="openGift()">🎁</div>
+            
+            <div id="finalMessage" style="display: none;">
+                <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #e879f9; margin-bottom: 12px;">You're the Best Friend Ever, Kinza! 🥰</h2>
+                <p>Have an amazing birthday filled with good food, great company, and tons of fun!</p>
+                
+                <!-- Interactive Friendship Question -->
+                <div class="love-question-box" id="loveQuestionArea">
+                    <h3 style="font-family: 'Playfair Display', serif; color: #f3e8ff; margin-bottom: 8px; font-size: 1.3rem;">Treat do ge na?😏</h3>
+                    <p style="font-size: 0.85rem; color: #d8b4fe; margin-bottom: 15px;" id="noPunishmentText">agr No pa click kr deya to treat ____</p>
+                    <div class="btn-group">
+                        <button class="btn" onclick="answerLoveYes()">Definitely! 🍕</button>
+                        <button class="btn btn-secondary runaway-no" id="runawayNoBtn" onmouseover="floatNoButton()" onclick="floatNoButton()">No 😜</button>
+                    </div>
+                </div>
+
+                <div id="loveResponse" style="display: none; margin-top: 20px;">
+                    <h3 style="font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: #e879f9;" id="responseText">Yay! Treat confirmed! Best birthday ever! ✨</h3>
+                    <button class="btn" style="margin-top: 15px;" onclick="location.reload()">Replay Journey 🔄</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Updated List of funny names for the lottery effect
+        const luckyNames = [
+            "Sigma Transgender dega",
+            "Bangali bhi dega",
+            "Cemet degi",
+            "Burhann dega",
+            "Sexy MoMo degi"
+        ];
+
+        let selectedPunishmentName = "";
+
+        // Screen Navigation
+        function nextScreen(screenNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`screen${screenNum}`).classList.add('active');
+        }
+
+        // Start Experience & Play Background Music
+        function startExperience(screenNum) {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.4;
+            music.play().catch(() => console.log("Audio autoplay prevented by browser"));
+            nextScreen(screenNum);
+        }
+
+        function toggleAudio() {
+            const music = document.getElementById('bgMusic');
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        // "Let's Go!" button logic: flies far away for 21 attempts, then on 22nd click shows popup
+        let hoverCount = 0;
+        const totalAttempts = 21;
+        function handleLetToGoHover() {
+            hoverCount++;
+            const btn = document.getElementById('letsGoBtn');
+
+            if (hoverCount <= totalAttempts) {
+                const randomX = (Math.random() - 0.5) * 600;
+                const randomY = (Math.random() - 0.5) * 400;
+                btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+            }
+        }
+
+        function handleLetToGoClick() {
+            if (hoverCount >= totalAttempts) {
+                document.getElementById('caughtPopup').style.display = 'flex';
+                confetti({
+                    particleCount: 150,
+                    spread: 100,
+                    origin: { y: 0.5 },
+                    colors: ['#c084fc', '#e9d5ff', '#a855f7', '#ffffff', '#fde047']
+                });
+            } else {
+                handleLetToGoHover();
+            }
+        }
+
+        function proceedAfterPopup() {
+            document.getElementById('caughtPopup').style.display = 'none';
+            startExperience(2);
+        }
+
+        // Supercharged Runaway "No" Button for Screen 6 - Jumps much further and instantly on hover/click
+        function floatNoButton() {
+            const btn = document.getElementById('runawayNoBtn');
+            // Expanded distance multipliers so it leaps completely away across the container boundaries
+            const randomX = (Math.random() - 0.5) * 700; 
+            const randomY = (Math.random() - 0.5) * 450; 
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        // Friendly Confirmation Answer
+        function answerLoveYes() {
+            document.getElementById('loveQuestionArea').style.display = 'none';
+            const responseDiv = document.getElementById('loveResponse');
+            responseDiv.style.display = 'block';
+            document.getElementById('responseText').innerText = `Yay! Treat confirmed! (By the way, if you clicked No it means ${selectedPunishmentName}! 😂✨)`;
+            
+            confetti({
+                particleCount: 200,
+                spread: 120,
+                origin: { y: 0.6 },
+                colors: ['#c084fc', '#e9d5ff', '#a855f7', '#ffffff', '#fde047']
+            });
+        }
+
+        // Screen 2: Pop Balloons logic
+        let poppedCount = 0;
+        let balloonWords = [];
+        
+        function popBalloon(element, text) {
+            if (!element.classList.contains('popped')) {
+                element.classList.add('popped');
+                
+                balloonWords.push(text.trim());
+                document.getElementById('balloonText').innerText = balloonWords.join(' ');
+                
+                confetti({
+                    particleCount: 25,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+
+                poppedCount++;
+                if (poppedCount === 4) {
+                    document.getElementById('s2Next').style.display = 'inline-block';
+                }
+            }
+        }
+
+        // Screen 3: Cake & Candles
+        function blowCandles() {
+            const flame = document.getElementById('flame');
+            if (flame) flame.style.display = 'none';
+            
+            document.getElementById('cakeEmoji').innerText = '🍰';
+            document.getElementById('cakeStatus').innerText = 'Your wish is locked in, Kinza! ✨';
+            
+            confetti({
+                particleCount: 100,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            document.getElementById('s3Next').style.display = 'inline-block';
+        }
+
+        // Screen 4: Reasons Card Display
+        function showReason(text) {
+            const card = document.getElementById('reasonText');
+            card.style.opacity = '0';
+            setTimeout(() => {
+                card.innerText = text;
+                card.style.opacity = '1';
+                card.style.transition = 'opacity 0.4s ease';
+            }, 200);
+        }
+
+        // Screen 6: Reveal Gift and randomize lucky draw name every time box is opened
+        function openGift() {
+            // Pick a random lucky name
+            const randomIndex = Math.floor(Math.random() * luckyNames.length);
+            selectedPunishmentName = luckyNames[randomIndex];
+            
+            // Update the text dynamically with the exact requested format
+            document.getElementById('noPunishmentText').innerText = `agr No pa click kr deya to ${selectedPunishmentName}`;
+
+            document.getElementById('giftBox').style.display = 'none';
+            document.getElementById('finalMessage').style.display = 'block';
+            
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.5 },
+                colors: ['#c084fc', '#e9d5ff', '#a855f7', '#ffffff']
+            });
+        }
+
+        // Ambient Floating Stars Background Effect
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = ['⭐', '✨', '💜', '🌸', '🎉'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
